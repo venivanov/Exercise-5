@@ -1,0 +1,81 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZKPMDB_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="File" m:HasStream="true" sap:content-version="1">
+				<Key><PropertyRef Name="Filename"/></Key><Property Name="Filename" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="c" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Value" Type="Edm.Binary" Nullable="false" sap:unicode="false" sap:label="Binary String" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Mimetype" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Character 100"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="TVShows" sap:content-version="1">
+				<Key><PropertyRef Name="ShowId"/></Key><Property Name="ShowId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="TV Show ID" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="TV Show Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="NoOfSeasons" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Season Number"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="NoOfEpisodes" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Number of Episodes" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="toEpisodes" Relationship="ZKPMDB_SRV.TVShowsEpisodes" FromRole="FromRole_TVShowsEpisodes"
+					ToRole="ToRole_TVShowsEpisodes"/></EntityType>
+			<EntityType Name="Episodes" sap:content-version="1">
+				<Key><PropertyRef Name="EpisodesId"/><PropertyRef Name="ShowId"/></Key><Property Name="EpisodesId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Episode ID" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="ShowId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="TV Show ID" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="EpisodeName" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Episode Name"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="EpisodeNumber" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Episode Number" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Duration" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Episode Duration"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Director" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Director" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Writer" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Writer" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="ZC_ShowsEpisodesConsumptionType" sap:label="Consuming ZI_ShowsEpisodesOperations" sap:content-version="1">
+				<Key><PropertyRef Name="TVShowID"/></Key><Property Name="TVShowID" Type="Edm.Int32" Nullable="false" sap:label="TV Show ID"/><Property Name="TVShowName" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="TV Show Name"/><Property Name="NumberofSeasons" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Season Number"
+					sap:quickinfo="Number of Seasons"/><Property Name="NumberofEpisodes" Type="Edm.Int32" sap:label="Number of Episodes"/><NavigationProperty Name="to_EpisodesBasic" Relationship="ZKPMDB_SRV.assoc_0D38D2551239484272F5391E60B47045"
+					FromRole="FromRole_assoc_0D38D2551239484272F5391E60B47045" ToRole="ToRole_assoc_0D38D2551239484272F5391E60B47045"/></EntityType>
+			<EntityType Name="ZI_EpisodesBasicType" sap:label="Basic view for zepisodes_vi" sap:content-version="1">
+				<Key><PropertyRef Name="EpisodeID"/><PropertyRef Name="TVShowID"/></Key><Property Name="EpisodeID" Type="Edm.Int32" Nullable="false" sap:label="Episode ID"/><Property Name="TVShowID" Type="Edm.Int32" Nullable="false" sap:label="TV Show ID"/><Property Name="EpisodeName" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="Episode Name"/><Property Name="EpisodeNumber" Type="Edm.Int32" sap:label="Episode Number"/><Property Name="EpisodeDuration" Type="Edm.Time" Precision="0" sap:label="Episode Duration"/><Property Name="Director" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Director"/><Property Name="Writer" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Writer"/></EntityType>
+			<ComplexType Name="CheckShowName"><Property Name="ShowName" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="TV Show Name" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/></ComplexType>
+			<Association Name="TVShowsEpisodes" sap:content-version="1"><End Type="ZKPMDB_SRV.TVShows" Multiplicity="1" Role="FromRole_TVShowsEpisodes"/><End Type="ZKPMDB_SRV.Episodes" Multiplicity="*" Role="ToRole_TVShowsEpisodes"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_TVShowsEpisodes"><PropertyRef Name="ShowId"/></Principal>
+					<Dependent Role="ToRole_TVShowsEpisodes"><PropertyRef Name="ShowId"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_0D38D2551239484272F5391E60B47045" sap:content-version="1">
+				<End Type="ZKPMDB_SRV.ZC_ShowsEpisodesConsumptionType" Multiplicity="1" Role="FromRole_assoc_0D38D2551239484272F5391E60B47045"><OnDelete Action="Cascade"/></End><End Type="ZKPMDB_SRV.ZI_EpisodesBasicType" Multiplicity="*" Role="ToRole_assoc_0D38D2551239484272F5391E60B47045"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_assoc_0D38D2551239484272F5391E60B47045"><PropertyRef Name="TVShowID"/></Principal>
+					<Dependent Role="ToRole_assoc_0D38D2551239484272F5391E60B47045"><PropertyRef Name="TVShowID"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZKPMDB_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true"
+				sap:supported-formats="atom json xlsx"><EntitySet Name="ZC_ShowsEpisodesConsumption" EntityType="ZKPMDB_SRV.ZC_ShowsEpisodesConsumptionType" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1"/><EntitySet Name="ZI_EpisodesBasic" EntityType="ZKPMDB_SRV.ZI_EpisodesBasicType" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:content-version="1"/><EntitySet Name="FileSet" EntityType="ZKPMDB_SRV.File" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="TVShowsSet" EntityType="ZKPMDB_SRV.TVShows" sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="EpisodesSet" EntityType="ZKPMDB_SRV.Episodes" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+				<AssociationSet Name="TVShowsEpisodesSet" Association="ZKPMDB_SRV.TVShowsEpisodes" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="TVShowsSet" Role="FromRole_TVShowsEpisodes"/><End EntitySet="EpisodesSet" Role="ToRole_TVShowsEpisodes"/></AssociationSet>
+				<AssociationSet Name="assoc_0D38D2551239484272F5391E60B47045" Association="ZKPMDB_SRV.assoc_0D38D2551239484272F5391E60B47045"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="ZC_ShowsEpisodesConsumption" Role="FromRole_assoc_0D38D2551239484272F5391E60B47045"/><End EntitySet="ZI_EpisodesBasic" Role="ToRole_assoc_0D38D2551239484272F5391E60B47045"/></AssociationSet>
+				<FunctionImport Name="Name" ReturnType="ZKPMDB_SRV.CheckShowName" m:HttpMethod="POST"><Parameter Name="TVShowName" Type="Edm.String" Mode="In"/></FunctionImport>
+			</EntityContainer>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZKPMDB_SRV.ZKPMDB_SRV_Entities">
+				<Annotation Term="Aggregation.ApplySupported">
+					<Record>
+						<PropertyValue Property="Transformations">
+							<Collection>
+								<String>aggregate</String>
+								<String>groupby</String>
+								<String>filter</String>
+							</Collection>
+						</PropertyValue><PropertyValue Property="Rollup" EnumMember="None"/></Record>
+				</Annotation>
+			</Annotations><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZKPMDB_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZKPMDB_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

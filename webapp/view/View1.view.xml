@@ -1,0 +1,64 @@
+<mvc:View controllerName="com.test.testa.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page title="Overview">
+					<content>
+						<VBox fitContainer="true">
+							<VBox fitContainer="true">
+								<HBox>
+									<Button id="createButton" press="oDataCreate" text="Create"/>
+									<Button id="readButton" press="oDataRead" text="Read"/>
+									<Button id="updateButton" press="oDataUpdate" text="Update"/>
+									<Button id="deleteButton" press="oDataDelete" text="Delete"/>
+								</HBox>
+								<HBox></HBox>
+							</VBox>
+							<HBox fitContainer="true">
+								<Input id="ID" placeholder="ID" value = "{users>/userDataSet/UserId}"/>
+								<Input id="Name" placeholder="Name" value = "{users>/userDataSet/Name}"/>
+								<Input id="Email" placeholder="Email" value = "{users>/userDataSet/Email}"/>
+								<Input id="Mobile" placeholder="Mobile" value = "{users>/userDataSet/Mobile}"/>
+							</HBox>
+							<HBox>
+								<Table id="usersTable" class="sapUiResponsiveMargin" width="auto" headerText="Users" items="{path: 'users>/userDataSet'}">
+									<columns>
+										<Column>
+											<Text text="ID"/>
+										</Column>
+										<Column>
+											<Text text="Username"/>
+										</Column>
+										<Column>
+											<Text text="Email"/>
+										</Column>
+										<Column>
+											<Text text="Mobile"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{users>UserId}"/>
+											</cells>
+											<cells>
+												<Text text="{users>Name}"/>
+											</cells>
+											<cells>
+												<Text text="{users>Email}"/>
+											</cells>
+											<cells>
+												<Text text="{users>Mobile}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</HBox>
+						</VBox>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
